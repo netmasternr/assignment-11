@@ -1,7 +1,10 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
+import { toast } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
+
 
 
 export const AuthContext = createContext(null)
@@ -11,6 +14,7 @@ const googleProvider = new GoogleAuthProvider();
 
 
 const AuthProvider = ({ children }) => {
+
     const [user, setUser] = useState(null);
     console.log(user)
 
@@ -24,10 +28,23 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    // social
+    // google
     const googleSignIn = () =>{
         return signInWithPopup(auth, googleProvider)
+        .then(() => {
+            toast.success('Logged in with Google successfully');
+        })
+        .catch(error => {
+            toast.error('Failed to login with Google');
+        });
     }
+
+    // sign out
+    const signOutUser = () =>{
+         signOut(auth);
+         setUser(null)
+       
+    };
 
     // observer
     useEffect(() => {
@@ -46,7 +63,9 @@ const AuthProvider = ({ children }) => {
     const info = {
         createUser,
         signInUser,
-        googleSignIn
+        googleSignIn,
+        signOutUser,
+        user
     }
     return (
         <AuthContext.Provider value={info}>

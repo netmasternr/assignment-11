@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/img/logo/logo.png'
 import img1 from '../../assets/img/image/762887_Job1-01.jpg'
 import UseAuth from '../UseAuth/UseAuth';
@@ -9,6 +9,8 @@ import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const { signInUser, googleSignIn } = UseAuth();
+
+    const navigate = useNavigate()
 
     // react hook
     const {
@@ -24,6 +26,7 @@ const Login = () => {
         signInUser(email, password)
         .then(result =>{
            toast.success('Sign In successfully')
+           navigate('/')
         })
         .catch((error) => {
             const errorMessage = error.message;

@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import UseAuth from "../../Components/UseAuth/UseAuth";
+import { Avatar } from "flowbite-react";
+
 
 
 const Navbar = () => {
     const [theme, setTheme] = useState('light')
+    const { signOutUser, user } = UseAuth()
+
 
     // local storage
     useEffect(() => {
@@ -21,7 +26,6 @@ const Navbar = () => {
             setTheme('light');
         }
     };
-
 
 
     const navLink = (
@@ -94,13 +98,27 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-end space-x-3">
-                <div className="avatar">
-                    <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                    </div>
-                </div>
+                {
+                    user?.email ?
+                        <details className="dropdown">
+                            <summary className="m-1 btn p-0 w-12  rounded-full">
+                                <img className=" rounded-full" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="" />
+                            </summary>
 
-                <Link to='/login' className="btn">Login</Link>
+                            <ul className="p-1 shadow menu dropdown-content z-[1] bg-gray-800 glass rounded-box  w-28">
+                                <li>{user?.displayName ? user.displayName : ""}</li>
+
+                                <li>
+                                    <button onClick={signOutUser}>Log Out</button>
+                                </li>
+                            </ul>
+                        </details>
+                        :
+
+                        <div>
+                            <Link to='/login' className="btn">Login</Link>
+                        </div>
+                }
 
                 <input onChange={toggle} type="checkbox" value="dark" className="toggle theme-controller" />
             </div>
