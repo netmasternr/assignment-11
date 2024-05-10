@@ -1,11 +1,63 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../../assets/img/logo/logo.png'
-import img1 from '../../assets/img/image/20125865_6205228.jpg'
+import img1 from '../../assets/img/image/762887_Job1-01.jpg'
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { useForm } from "react-hook-form"
+import { toast } from 'react-hot-toast';
+
+
 
 const Register = () => {
+    const { createUser } = useContext(AuthContext);
+    const navigate = useNavigate()
+
+    // react hook
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm()
+
+    const onSubmit = (data) => {
+        const { email, password } = data;
+
+       
+        // Validate password
+        const uppercaseRegex = /(?=.*[A-Z])/;
+        const lowercaseRegex = /(?=.*[a-z])/;
+
+        if (!uppercaseRegex.test(password)) {
+            toast.error('Password must contain at least one uppercase letter');
+            return;
+        }
+
+        if (!lowercaseRegex.test(password)) {
+            toast.error('Password must contain at least one lowercase letter');
+            return;
+        }
+
+        // create user
+        createUser(email, password)
+            .then(result => {
+                // console.log(result)
+                toast.success('User Registered Successfully')
+                navigate('/')
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                toast.error(errorMessage);
+
+            });
+
+    }
+
+
     return (
-        <div className='flex justify-center items-center min-h-[calc(100vh-306px)]'>
-            <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl '>
+
+        <div className='flex justify-center items-center min-h-[calc(100vh-306px)] pt-10 md:pt-20  pb-4'>
+            <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md  lg:max-w-4xl '>
                 <div className='w-full px-6 py-8 md:px-8 lg:w-1/2'>
                     <div className='flex justify-center mx-auto'>
                         <img
@@ -56,7 +108,7 @@ const Register = () => {
                         <span className='w-1/5 border-b dark:border-gray-400 lg:w-1/4'></span>
                     </div>
 
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className='mt-4'>
                             <label
                                 className='block mb-2 text-sm font-medium text-gray-600 '
@@ -66,11 +118,13 @@ const Register = () => {
                             </label>
                             <input
                                 id='name'
+                                placeholder="full Name"
                                 autoComplete='name'
-                                name='name'
+                                name='fullName'
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='text'
-                            />
+                                {...register("fullName", { required: true })} />
+                            {errors.fullName && <span>This field is required</span>}
                         </div>
                         <div className='mt-4'>
                             <label
@@ -81,11 +135,15 @@ const Register = () => {
                             </label>
                             <input
                                 id='photo'
+                                placeholder="photo"
                                 autoComplete='photo'
                                 name='photo'
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='text'
+                                {...register("photo", { required: true })}
                             />
+                            {errors.photo && <span>This field is required</span>}
+
                         </div>
                         <div className='mt-4'>
                             <label
@@ -95,12 +153,16 @@ const Register = () => {
                                 Email Address
                             </label>
                             <input
+                                placeholder=""
                                 id='LoggingEmailAddress'
                                 autoComplete='email'
                                 name='email'
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='email'
+                                {...register("email", { required: true })}
                             />
+                            {errors.email && <span>This field is required</span>}
+
                         </div>
 
                         <div className='mt-4'>
@@ -119,7 +181,10 @@ const Register = () => {
                                 name='password'
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='password'
+                                {...register("password", { required: true })}
                             />
+                            {errors.password && <span>This field is required</span>}
+
                         </div>
                         <div className='mt-6'>
                             <button
@@ -131,15 +196,15 @@ const Register = () => {
                         </div>
                     </form>
 
-                    <div className='flex items-center justify-between mt-4'>
+                    <div className='flex items-center justify-between mt-10'>
                         <span className='w-1/5 border-b  md:w-1/4'></span>
 
                         <Link
                             to='/login'
                             className='text-xs text-gray-500 uppercase  hover:underline'
                         >
-                             <button className='btn bg-slate-800 text-white '> or sign in</button>
-                            
+                            <button className='btn bg-slate-800  text-white '> or sign in</button>
+
                         </Link>
 
                         <span className='w-1/5 border-b  md:w-1/4'></span>
@@ -152,6 +217,7 @@ const Register = () => {
                     }}
                 ></div>
             </div>
+
         </div>
     );
 };

@@ -23,6 +23,7 @@ const Navbar = () => {
     };
 
 
+
     const navLink = (
         <>
             <NavLink
@@ -72,7 +73,7 @@ const Navbar = () => {
 
     )
     return (
-        <div className="navbar bg-base-100">
+        <div className='navbar bg-neutral  max-w-7xl mx-auto text-gray-400  fixed z-10 '>
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
