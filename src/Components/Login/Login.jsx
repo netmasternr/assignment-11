@@ -3,11 +3,12 @@ import logo from '../../assets/img/logo/logo.png'
 import img1 from '../../assets/img/image/762887_Job1-01.jpg'
 import UseAuth from '../UseAuth/UseAuth';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 
 
 const Login = () => {
-    const { signInUser } = UseAuth();
+    const { signInUser, googleSignIn } = UseAuth();
 
     // react hook
     const {
@@ -18,7 +19,16 @@ const Login = () => {
     } = useForm()
 
     const onSubmit = (data) => {
-        console.log(data)
+        const {email, password} = data;
+        // sign in
+        signInUser(email, password)
+        .then(result =>{
+           toast.success('Sign In successfully')
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+           toast.error(errorMessage)
+          });  
     }
 
 
@@ -67,9 +77,9 @@ const Login = () => {
                             </svg>
                         </div>
 
-                        <span className='w-5/6 px-4 py-3 font-bold text-center'>
+                        <button onClick={()=>googleSignIn()} className='w-5/6 px-4 py-3 font-bold text-center'>
                             Sign in with Google
-                        </span>
+                        </button>
                     </div>
 
                     <div className='flex items-center justify-between mt-4'>
@@ -96,7 +106,9 @@ const Login = () => {
                                 name='email'
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='email'
+                                {...register("email", { required: true })}
                             />
+                            {errors.email && <span>This field is required</span>}
                         </div>
 
                         <div className='mt-4'>
@@ -115,7 +127,9 @@ const Login = () => {
                                 name='password'
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='password'
+                                {...register("password", { required: true })}
                             />
+                            {errors.password && <span>This field is required</span>}
                         </div>
                         <div className='mt-6'>
                             <button
