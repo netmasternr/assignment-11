@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form"
 import { toast } from 'react-hot-toast';
+import GoogleLogin from "../GoogleLogin/GoogleLogin";
 
 
 
@@ -76,6 +77,10 @@ const Register = () => {
                     <p className='mt-3 text-xl text-center text-gray-600 '>
                         Create Your Account Now
                     </p>
+
+                    <div>
+                        <GoogleLogin></GoogleLogin>
+                    </div>
 
                     <div className='flex items-center justify-between mt-4'>
                         <span className='w-1/5 border-b  lg:w-1/4'></span>

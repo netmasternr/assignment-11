@@ -4,11 +4,12 @@ import img1 from '../../assets/img/image/762887_Job1-01.jpg'
 import UseAuth from '../UseAuth/UseAuth';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import GoogleLogin from '../GoogleLogin/GoogleLogin';
 
 
 
 const Login = () => {
-    const { signInUser, googleSignIn } = UseAuth();
+    const { signInUser } = UseAuth();
 
     //  navigate
     const navigate = useNavigate();
@@ -37,18 +38,6 @@ const Login = () => {
             });
     }
 
-    const handleSocialLogin = socialProvider => {
-        socialProvider()
-            .then(result => {
-                toast.success('Logged in with Google successfully');
-                navigate(form)
-                // console.log(result.user)
-            })
-            .catch(error => {
-                toast.error('Failed to login with Google');
-            });
-    }
-
 
     return (
         <div className='flex justify-center items-center min-h-[calc(100vh-200px)] bg-base-100 pt-10 md:pt-20  pb-4'>
@@ -73,7 +62,7 @@ const Login = () => {
                         Welcome back!
                     </p>
 
-                    <div className='flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 '>
+                    {/* <div className='flex cursor-pointer items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg   hover:bg-gray-50 '>
                         <div className='px-4 py-2'>
                             <svg className='w-6 h-6' viewBox='0 0 40 40'>
                                 <path
@@ -98,7 +87,8 @@ const Login = () => {
                         <button onClick={() => handleSocialLogin(googleSignIn)} className='w-5/6 px-4 py-3 font-bold text-center'>
                             Sign in with Google
                         </button>
-                    </div>
+                    </div> */}
+                    <GoogleLogin></GoogleLogin>
 
                     <div className='flex items-center justify-between mt-4'>
                         <span className='w-1/5 border-b  lg:w-1/4'></span>
