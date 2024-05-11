@@ -4,13 +4,13 @@ import JobCard from './JobCard';
 
 const TapList = () => {
     return (
-        <div className='mb-8'>
-            <div className='text-center mt-8 mb-8'>
-                <h1 className='text-xl pb-1'>Browse jobs By Categories</h1>
-                <p className=''>Three categories available for the time being. They are On-site job, Remote job, Hybrid and Part-time job</p>
+        <div className='pb-8 px-3'>
+            <div className='text-center pt-8 px-3 pb-8'>
+                <h1 className='text-xl font-bold pb-1'>Browse jobs By Categories</h1>
+                <p className='font-semibold'>Three categories available for the time being. They are On-site job, Remote job, Hybrid and Part-time job</p>
             </div>
             <Tabs>
-                <div className='flex items-center justify-center'>
+                <div className='flex items-center justify-center font-semibold'>
                     <TabList>
                         <Tab>On-Site Job</Tab>
                         <Tab>Remote Job</Tab>
