@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     // console.log(user)
     const [loading, setLoading] = useState(true);
-  
+
 
     // create User
     const createUser = (email, password) => {
@@ -26,9 +26,9 @@ const AuthProvider = ({ children }) => {
     // // update userprofile
     const updateUserProfile = (name, image) => {
 
-      return  updateProfile(auth.currentUser, {
+        return updateProfile(auth.currentUser, {
             displayName: name,
-            photoURL: image 
+            photoURL: image
         }).then(() => {
             // Profile updated!
             // ...
@@ -64,6 +64,11 @@ const AuthProvider = ({ children }) => {
             if (user) {
                 setUser(user)
                 setLoading(false)
+            }
+            else {
+                setLoading(false)
+                // User is signed out
+                // ...
             }
         });
 

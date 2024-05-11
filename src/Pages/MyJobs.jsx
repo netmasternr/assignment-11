@@ -1,7 +1,7 @@
 
 const MyJobs = () => {
     return (
-        <div>
+        <div className="pt-10 md:pt-20 ">
             my jobs
         </div>
     );

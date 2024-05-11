@@ -17,13 +17,13 @@ import Slide from '../Slide/Slide';
 
 const Carousel = () => {
     return (
-        <>
+        <div className=''>
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
                 loop={true}
                 autoplay={{
-                    delay: 4500,
+                    delay: 5000,
                     disableOnInteraction: false,
                 }}
                 pagination={{
@@ -47,7 +47,7 @@ const Carousel = () => {
                 </SwiperSlide>
         
             </Swiper>
-        </>
+        </div>
     );
 };
 

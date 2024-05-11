@@ -1,7 +1,7 @@
 
 const AllJobs = () => {
     return (
-        <div>
+        <div className="pt-10 md:pt-20 ">
             all jobs
         </div>
     );

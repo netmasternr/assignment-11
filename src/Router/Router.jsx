@@ -27,7 +27,9 @@ const router = createBrowserRouter([
             },
             {
                 path: '/Applied-Jobs',
-                element: <AppliedJobs />
+                element: <PrivateRoute>
+                    <MyJobs />
+                </PrivateRoute>
             },
             {
                 path: '/Add-Job',
@@ -37,7 +39,10 @@ const router = createBrowserRouter([
             },
             {
                 path: '/My-Jobs',
-                element: <MyJobs />
+                element: <PrivateRoute>
+                    <MyJobs />
+                </PrivateRoute>
+
             },
             {
                 path: '/Blogs',
