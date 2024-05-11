@@ -51,8 +51,8 @@ const Login = () => {
 
 
     return (
-        <div className='flex justify-center items-center min-h-[calc(100vh-200px)] bg-gray-200 pt-10 md:pt-20  pb-4'>
-            <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg  lg:max-w-4xl '>
+        <div className='flex justify-center items-center min-h-[calc(100vh-200px)] bg-base-100 pt-10 md:pt-20  pb-4'>
+            <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-base-100 rounded-lg  lg:max-w-4xl '>
                 <div
                     className='hidden bg-cover bg-center lg:block lg:w-1/2'
                     style={{
@@ -110,7 +110,8 @@ const Login = () => {
                         <span className='w-1/5 border-b dark:border-gray-400 lg:w-1/4'></span>
                     </div>
 
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form className='bg-base-100' onSubmit={handleSubmit(onSubmit)}
+                    >
                         <div className='mt-4'>
                             <label
                                 className='block mb-2 text-sm font-medium text-gray-600 '

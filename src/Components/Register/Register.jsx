@@ -63,7 +63,7 @@ const Register = () => {
 
     return (
         <div className='flex justify-center items-center min-h-[calc(100vh-306px)] pt-10 md:pt-20  pb-4'>
-            <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md  lg:max-w-4xl '>
+            <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-base-100 rounded-lg shadow-md  lg:max-w-4xl '>
                 <div className='w-full px-6 py-8 md:px-8 lg:w-1/2'>
                     <div className='flex justify-center mx-auto'>
                         <img
