@@ -63,8 +63,9 @@ const Navbar = () => {
                 className={({ isActive }) =>
                     isActive ? 'text-green-500 bg-gray-600 p-2 rounded-lg font-bold' : 'p-2 font-bold'
                 }>
-                Add A Job
+                My Jobs
             </NavLink>
+
             <NavLink
                 to="/Blogs"
                 className={({ isActive }) =>
@@ -74,10 +75,9 @@ const Navbar = () => {
             </NavLink>
         </>
 
-
     )
     return (
-        <div className='navbar bg-neutral  max-w-7xl mx-auto text-gray-400  fixed z-10 '>
+        <div className='navbar bg-neutral  max-w-7xl mx-auto text-gray-400 shadow-md  fixed z-10 '>
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -99,28 +99,30 @@ const Navbar = () => {
 
             <div className="navbar-end space-x-3">
                 {
-                    user?.email ?
+                    user ? (
                         <details className="dropdown">
-                            <summary className="m-1 btn p-0 w-12  rounded-full">
-                                <img className=" rounded-full" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="" />
+                            <summary className="m-1 btn p-0 w-12 rounded-full">
+                                <img className="rounded-full" src={user?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} alt="" />
                             </summary>
 
-                            <ul className="p-1 shadow menu dropdown-content z-[1] bg-gray-800 glass rounded-box  w-28">
-                                <li>{user?.displayName ? user.displayName : ""}</li>
-
+                            <ul className="p-1 shadow menu dropdown-content z-[1] bg-gray-800 glass rounded-box w-28">
+                                <li>{user?.displayName || "unknown"}</li>
                                 <li>
                                     <button onClick={signOutUser}>Log Out</button>
                                 </li>
                             </ul>
                         </details>
-                        :
-
+                    ) : 
+                    (
                         <div>
                             <Link to='/login' className="btn">Login</Link>
                         </div>
+                    )
                 }
 
+
                 <input onChange={toggle} type="checkbox" value="dark" className="toggle theme-controller" />
+
             </div>
         </div>
     );

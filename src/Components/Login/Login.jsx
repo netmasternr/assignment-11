@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../../assets/img/logo/logo.png'
 import img1 from '../../assets/img/image/762887_Job1-01.jpg'
 import UseAuth from '../UseAuth/UseAuth';
@@ -10,7 +10,10 @@ import { toast } from 'react-hot-toast';
 const Login = () => {
     const { signInUser, googleSignIn } = UseAuth();
 
-    const navigate = useNavigate()
+    //  navigate
+    const navigate = useNavigate();
+    const location = useLocation();
+    const form = location?.state || '/';
 
     // react hook
     const {
@@ -21,17 +24,29 @@ const Login = () => {
     } = useForm()
 
     const onSubmit = (data) => {
-        const {email, password} = data;
+        const { email, password } = data;
         // sign in
         signInUser(email, password)
-        .then(result =>{
-           toast.success('Sign In successfully')
-           navigate('/')
-        })
-        .catch((error) => {
-            const errorMessage = error.message;
-           toast.error(errorMessage)
-          });  
+            .then(result => {
+                toast.success('Sign In successfully')
+                navigate(form)
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                toast.error(errorMessage)
+            });
+    }
+
+    const handleSocialLogin = socialProvider => {
+        socialProvider()
+            .then(result => {
+                toast.success('Logged in with Google successfully');
+                navigate(form)
+                // console.log(result.user)
+            })
+            .catch(error => {
+                toast.error('Failed to login with Google');
+            });
     }
 
 
@@ -80,7 +95,7 @@ const Login = () => {
                             </svg>
                         </div>
 
-                        <button onClick={()=>googleSignIn()} className='w-5/6 px-4 py-3 font-bold text-center'>
+                        <button onClick={() => handleSocialLogin(googleSignIn)} className='w-5/6 px-4 py-3 font-bold text-center'>
                             Sign in with Google
                         </button>
                     </div>
@@ -105,6 +120,7 @@ const Login = () => {
                             </label>
                             <input
                                 id='LoggingEmailAddress'
+                                placeholder='Email'
                                 autoComplete='email'
                                 name='email'
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
@@ -127,6 +143,7 @@ const Login = () => {
                             <input
                                 id='loggingPassword'
                                 autoComplete='current-password'
+                                placeholder='Password'
                                 name='password'
                                 className='block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg    focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300'
                                 type='password'

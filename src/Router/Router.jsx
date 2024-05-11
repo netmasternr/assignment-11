@@ -9,48 +9,51 @@ import Blogs from "../Pages/Blogs";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Login from "../Components/Login/Login";
 import Register from "../Components/Register/Register";
+import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
-      path: "/",
-      element: <Main/>,
-      errorElement:<ErrorPage/>,
-      children:[
-        {
-            path:'/',
-            element:<Home/> 
-        },
-        {
-            path:'/All-Jobs',
-            element:<AllJobs/> 
-        },
-        {
-            path:'/Applied-Jobs',
-            element:<AppliedJobs/> 
-        },
-        {
-            path:'/Add-Job',
-            element:<AddJobs/> 
-        },
-        {
-            path:'/My-Jobs',
-            element:<MyJobs/> 
-        },
-        {
-            path:'/Blogs',
-            element:<Blogs/> 
-        },
-        {
-            path:'/login',
-            element:<Login/>
-        },
-        {
-            path:'/register',
-            element:<Register/>
-        }
-        
-      ]
+        path: "/",
+        element: <Main />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: '/',
+                element: <Home />
+            },
+            {
+                path: '/All-Jobs',
+                element: <AllJobs />
+            },
+            {
+                path: '/Applied-Jobs',
+                element: <AppliedJobs />
+            },
+            {
+                path: '/Add-Job',
+                element: <PrivateRoute>
+                    <AddJobs />
+                </PrivateRoute>
+            },
+            {
+                path: '/My-Jobs',
+                element: <MyJobs />
+            },
+            {
+                path: '/Blogs',
+                element: <Blogs />
+            },
+            {
+                path: '/login',
+                element: <Login />
+            },
+            {
+                path: '/register',
+                element: <Register />
+            }
+
+        ]
     },
-  ]);
+]);
 
 export default router;

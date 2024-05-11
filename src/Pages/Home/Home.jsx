@@ -1,9 +1,11 @@
+import Slider from "./Slider";
 
 const Home = () => {
     return (
-        <div>
+        <div className="pt-[70px]">
        
-            this is home 
+          
+          <Slider/>
         </div>
     );
 };
