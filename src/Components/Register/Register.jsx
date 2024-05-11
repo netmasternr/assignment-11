@@ -191,7 +191,7 @@ const Register = () => {
                     </div>
                 </div>
                 <div
-                    className='hidden bg-cover bg-center lg:block lg:w-1/2'
+                    className='hidden bg-cover bg-center lg:block rounded-xl lg:w-1/2'
                     style={{
                         backgroundImage: `url(${img1})`,
                     }}

@@ -54,7 +54,7 @@ const Login = () => {
         <div className='flex justify-center items-center min-h-[calc(100vh-200px)] bg-base-100 pt-10 md:pt-20  pb-4'>
             <div className='flex w-full max-w-sm mx-auto overflow-hidden bg-base-100 rounded-lg  lg:max-w-4xl '>
                 <div
-                    className='hidden bg-cover bg-center lg:block lg:w-1/2'
+                    className='hidden bg-cover bg-center lg:block rounded-xl lg:w-1/2'
                     style={{
                         backgroundImage: `url(${img1})`,
                     }}
