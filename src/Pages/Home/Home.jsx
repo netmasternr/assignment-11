@@ -1,9 +1,9 @@
-import Slider from "./Slider";
+import Carousel from "../../Components/Carousel/Carousel";
 
 const Home = () => {
     return (
         <div className="pt-[70px]">
-          <Slider/>
+          <Carousel></Carousel>
           
         </div>
     );
