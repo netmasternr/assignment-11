@@ -10,6 +10,7 @@ import Login from "../Components/Login/Login";
 import Register from "../Components/Register/Register";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 import AppliedJobs from "../Pages/AppliedJobs";
+import SingleJobDetails from "../Pages/SingleJobDetails";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />,
-                
+
             },
             {
                 path: '/All-Jobs',
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
             {
                 path: '/Applied-Jobs',
                 element: <PrivateRoute>
-                   <AppliedJobs/>
+                    <AppliedJobs />
                 </PrivateRoute>
             },
             {
@@ -56,6 +57,13 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register />
+            },
+            {
+                path: '/singleJob/:id',
+                element: <PrivateRoute>
+                    <SingleJobDetails />
+                </PrivateRoute>,
+                loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/singleJob/${params.id}`)
             }
 
         ]

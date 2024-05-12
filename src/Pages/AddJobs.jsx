@@ -1,14 +1,54 @@
-import React from 'react';
+import { useState } from 'react';
 import img from '../assets/img/image/762887_Job1-01.jpg'; // Importing image
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import UseAuth from '../Components/UseAuth/UseAuth';
 
 const AddJobs = () => {
+    const [startDate, setStartDate] = useState(new Date());
+    const { user } = UseAuth()
+    // console.log(user)
+
+    const handleJobPost = e => {
+        e.preventDefault();
+        const form = e.target;
+    
+        // Retrieve form data using form.elements
+        const Picture_URL = form.elements.Picture_URL.value;
+        const job_title = form.elements.job_title.value;
+        const email = form.elements.email.value;
+        const category = form.elements.category.value;
+        const Salary_range = form.elements.Salary_range.value;
+        const Applicants_Number = form.elements.Applicants_Number.value;
+        const description = form.elements.description.value;
+    
+      
+        const startDateValue = startDate;
+    
+        const JobPost = {
+            Picture_URL,
+            job_title,
+            email,
+            category,
+            Salary_range,
+            Applicants_Number,
+            description,
+            startDate: startDateValue 
+        };
+    
+        console.log(JobPost);
+    };
+    
+
     return (
         <div className='pt-10 md:pt-20 flex justify-center items-center flex-grow my-12 mb-0 pb-8 bg-cover' style={{ backgroundImage: `url(${img})` }}>
             <section className='p-2 md:p-6 mx-auto bg-neutral text-white rounded-md shadow-md'>
                 <h2 className='text-lg font-semibold text-white capitalize'>
                     Post a Job
                 </h2>
-                <form>
+
+                <form onSubmit={handleJobPost}>
                     <div className='grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2'>
                         <div>
                             <label className='text-white' htmlFor='job_title'>
@@ -42,13 +82,19 @@ const AddJobs = () => {
                                 id='emailAddress'
                                 type='email'
                                 name='email'
+                                defaultValue={user.email}
                                 disabled
-                                className='block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring'
+                                className='block w-full px-8 py-2 mt-2 text-black bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring'
                             />
                         </div>
                         <div className='flex flex-col gap-2'>
                             <label className='text-white'>Deadline</label>
-                            {/* Date Picker Input Field */}
+                            <DatePicker
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                dateFormat="yyyy-MM-dd"
+                                className='block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring'
+                            />
                         </div>
                         <div className='flex flex-col gap-2'>
                             <label className='text-white' htmlFor='category'>
@@ -66,11 +112,11 @@ const AddJobs = () => {
                             </select>
                         </div>
                         <div>
-                            <label className='text-white' htmlFor='min_price'>
+                            <label className='text-white' htmlFor='Salary_range'>
                                 Salary range
                             </label>
                             <input
-                                id='min_price'
+                                id='Salary_range'
                                 name='Salary_range'
                                 placeholder='Salary range'
                                 type='number'
@@ -78,13 +124,13 @@ const AddJobs = () => {
                             />
                         </div>
                         <div>
-                            <label className='text-white' htmlFor='max_price'>
+                            <label className='text-white' htmlFor='Applicants_Number'>
                                 Job Applicants Number
                             </label>
                             <input
-                                id='max_price'
+                                id='Applicants_Number'
                                 defaultValue={0}
-                                name='max_price'
+                                name='Applicants_Number'
                                 type='number'
                                 className='block w-full px-4 py-2 mt-2 text-black bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring'
                             />
