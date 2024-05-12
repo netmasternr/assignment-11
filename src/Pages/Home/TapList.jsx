@@ -1,8 +1,12 @@
+/* eslint-disable react/prop-types */
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import JobCard from './JobCard';
 
-const TapList = () => {
+const TapList = ({ jobs }) => {
+
+
+
     return (
         <div className='pb-8 px-3'>
             <div className='text-center pt-8 px-3 pb-8'>
@@ -21,7 +25,11 @@ const TapList = () => {
                 </div>
 
                 <TabPanel>
-                    <JobCard/>
+                    <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
+                        {
+                            jobs.filter(j => j.jobCategory==='On-Site Job').map(job => <JobCard key={job._id} job={job} />)
+                        }
+                    </div>
                 </TabPanel>
 
                 <TabPanel>
