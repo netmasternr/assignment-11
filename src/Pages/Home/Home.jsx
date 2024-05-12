@@ -3,13 +3,8 @@ import TapList from "./TapList";
 // import img from '../../assets/img/image/762887_Job1-01.jpg'
 import About from "./About";
 import SkillsHere from "./SkillsHere";
-import { useLoaderData } from "react-router-dom";
-
 
 const Home = () => {
-
-  const jobs = useLoaderData();
-  console.log(jobs)
 
 
     return (
@@ -17,7 +12,7 @@ const Home = () => {
           <Carousel></Carousel>
 
           <div className="bg-cover" >
-            <TapList jobs={jobs}/>
+            <TapList/>
           </div>
 
           <div>

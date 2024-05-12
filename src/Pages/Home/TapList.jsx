@@ -2,10 +2,20 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import JobCard from './JobCard';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const TapList = ({ jobs }) => {
+const TapList = () => {
+    const [jobs, setJobs] = useState([]);
 
+    useEffect(() =>{
+        const getDta = async () =>{
+            const {data} =await axios(`${import.meta.env.VITE_API_URL}/jobs`)
+            setJobs(data)
 
+        }
+        getDta()
+    },[])
 
     return (
         <div className='pb-8 px-3'>
@@ -27,21 +37,33 @@ const TapList = ({ jobs }) => {
                 <TabPanel>
                     <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
                         {
-                            jobs.filter(j => j.jobCategory==='On-Site Job').map(job => <JobCard key={job._id} job={job} />)
+                            jobs.filter(j => j.jobCategory === 'On-Site Job').map(job => <JobCard key={job._id} job={job} />)
                         }
                     </div>
                 </TabPanel>
 
                 <TabPanel>
-                    <h2>Any content 2</h2>
+                    <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
+                        {
+                            jobs.filter(j => j.jobCategory === 'Remote Job').map(job => <JobCard key={job._id} job={job} />)
+                        }
+                    </div>
                 </TabPanel>
 
                 <TabPanel>
-                    <h2>Any content 3</h2>
+                    <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
+                        {
+                            jobs.filter(j => j.jobCategory === 'Hybrid').map(job => <JobCard key={job._id} job={job} />)
+                        }
+                    </div>
                 </TabPanel>
 
                 <TabPanel>
-                    <h2>Any content 4</h2>
+                    <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
+                        {
+                            jobs.filter(j => j.jobCategory === 'Part-Time').map(job => <JobCard key={job._id} job={job} />)
+                        }
+                    </div>
                 </TabPanel>
             </Tabs>
         </div>
