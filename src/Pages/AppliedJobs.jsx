@@ -7,7 +7,7 @@ const AppliedJobs = () => {
 
     const { user } = UseAuth()
     const [items, setItems] = useState([])
-    console.log(items)
+    // console.log(items)
 
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const AppliedJobs = () => {
 
     return (
         <div className="pt-10 md:pt-20 ">
-            <div>
+            <div className="flex justify-around mt-4">
                 <select
                     name='category'
                     id='category'
@@ -40,6 +40,8 @@ const AppliedJobs = () => {
                     <option value='Part-Time'>Part-Time
                     </option>
                 </select>
+
+                <button className="btn">Download Summery</button>
             </div>
 
             <section className='container px-4 mx-auto pt-12'>
@@ -109,7 +111,7 @@ const AppliedJobs = () => {
                                                     </td>
 
                                                     <td className='px-4 py-4 text-lg text-gray-500  whitespace-nowrap'>
-                                                       $ {item.Salary_range}
+                                                        $ {item.Salary_range}
                                                     </td>
                                                     <td className='px-4 py-4 text-lg whitespace-nowrap'>
                                                         <div className='flex items-center gap-x-2'>
@@ -122,7 +124,7 @@ const AppliedJobs = () => {
                                                     </td>
 
                                                     {/* update and delete button */}
-                                                   
+
 
                                                 </tr>
                                             ))
