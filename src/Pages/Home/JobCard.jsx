@@ -1,18 +1,20 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
-import img3 from '../../assets/img/sliderImg/rag-dolls-one-blue.jpg'
+import { Link } from "react-router-dom";
+
 
 const JobCard = ({ job }) => {
+    console.log(job)
 
-    const { jobCategory, jobTitle, _id, salaryRange, jobPostingDate, jobApplicantsNumber, pictureURL, jobDescription } = job || {};
+    const { Applicants_Number, _id, job_title, category, Picture_URL, Salary_range, startDate } = job;
 
-    // console.log(_id)
+    console.log(_id)
 
     return (
         <div className=' px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all'>
 
             <div>
-                <img className=' w-2/3 mx-auto rounded-lg pb-2' src={img3} alt="" />
+                <img className=' w-2/3 mx-auto rounded-lg pb-2' src={Picture_URL} alt="" />
+
             </div>
 
 
@@ -22,11 +24,13 @@ const JobCard = ({ job }) => {
                     Deadline: 20/12/2024
                 </span>
                 <span className='px-3 py-1 text-[8px] text-blue-800 uppercase bg-blue-200 rounded-full '>
-                    {jobCategory}
+                    {category}
                 </span>
             </div>
             <div className='pt-1 space-y-1'>
-                <p>Application Deadline:</p>
+                <p>Application Deadline:
+                    {startDate}
+                </p>
 
                 <h1 className='text-lg font-semibold text-gray-800'>name:</h1>
             </div>
@@ -34,19 +38,23 @@ const JobCard = ({ job }) => {
             <div className='flex items-center justify-between space-y-1'>
                 <div>
                     <h1 className='mt-2 text-lg font-semibold text-gray-800 '>
-                        {jobTitle}
+                        {job_title}
+
                     </h1>
 
                     <p className='mt-2 text-sm font-bold text-gray-600 '>
-                        Range: $ {salaryRange}
+                        Range: $
+                        {Salary_range}
                     </p>
-                    <p className='pt-1'>Applicants Number:{jobApplicantsNumber}
+                    <p className='pt-1'>Applicants Number:
+                        {Applicants_Number}
                     </p>
                 </div>
                 <div>
                     <Link to={`/singleJob/${_id}`}
-                    
-                    className='btn'>view details</Link>
+
+
+                        className='btn'>view details</Link>
                 </div>
             </div>
         </div>

@@ -1,20 +1,19 @@
 import { useState } from 'react';
 import img from '../assets/img/image/762887_Job1-01.jpg'; // Importing image
 import DatePicker from "react-datepicker";
-
+import { toast } from 'react-hot-toast';
 import "react-datepicker/dist/react-datepicker.css";
 import UseAuth from '../Components/UseAuth/UseAuth';
+import axios from 'axios';
 
 const AddJobs = () => {
     const [startDate, setStartDate] = useState(new Date());
     const { user } = UseAuth()
-    // console.log(user)
 
-    const handleJobPost = e => {
+    const handleJobPost = async (e) => {
         e.preventDefault();
         const form = e.target;
-    
-        // Retrieve form data using form.elements
+
         const Picture_URL = form.elements.Picture_URL.value;
         const job_title = form.elements.job_title.value;
         const email = form.elements.email.value;
@@ -22,10 +21,15 @@ const AddJobs = () => {
         const Salary_range = form.elements.Salary_range.value;
         const Applicants_Number = form.elements.Applicants_Number.value;
         const description = form.elements.description.value;
-    
-      
+
         const startDateValue = startDate;
-    
+
+        if (!job_title || !Salary_range) {
+            if (!job_title) toast.error('Please add job title');
+            if (!Salary_range) toast.error('Please add salary range');
+            return;
+        }
+
         const JobPost = {
             Picture_URL,
             job_title,
@@ -34,12 +38,19 @@ const AddJobs = () => {
             Salary_range,
             Applicants_Number,
             description,
-            startDate: startDateValue 
+            startDate: startDateValue
         };
-    
-        console.log(JobPost);
+
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/jobs`, JobPost);
+            toast.success('Job added successfully');
+            form.reset(); 
+            setStartDate(new Date()); 
+        } catch (err) {
+            console.log(err);
+            toast.error('Failed to add job');
+        }
     };
-    
 
     return (
         <div className='pt-10 md:pt-20 flex justify-center items-center flex-grow my-12 mb-0 pb-8 bg-cover' style={{ backgroundImage: `url(${img})` }}>
@@ -47,7 +58,6 @@ const AddJobs = () => {
                 <h2 className='text-lg font-semibold text-white capitalize'>
                     Post a Job
                 </h2>
-
                 <form onSubmit={handleJobPost}>
                     <div className='grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2'>
                         <div>
@@ -105,10 +115,10 @@ const AddJobs = () => {
                                 id='category'
                                 className='border p-2 rounded-md bg-slate-700'
                             >
-                                <option value='Web Development'>on_site</option>
-                                <option value='Graphics Design'>remote</option>
-                                <option value='Digital Marketing'>part_time</option>
-                                <option value='Digital Marketing'>hybrid</option>
+                                <option value='On-Site Job'>On-Site Job</option>
+                                <option value='Remote Job'>Remote Job</option>
+                                <option value='Hybrid'>Hybrid</option>
+                                <option value='Part-Time'>Part-Time</option>
                             </select>
                         </div>
                         <div>

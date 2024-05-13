@@ -7,15 +7,16 @@ import axios from 'axios';
 
 const TapList = () => {
     const [jobs, setJobs] = useState([]);
+    console.log(jobs)
 
-    useEffect(() =>{
-        const getDta = async () =>{
-            const {data} =await axios(`${import.meta.env.VITE_API_URL}/jobs`)
+    useEffect(() => {
+        const getDta = async () => {
+            const { data } = await axios(`${import.meta.env.VITE_API_URL}/jobs`)
             setJobs(data)
 
         }
         getDta()
-    },[])
+    }, [])
 
     return (
         <div className='pb-8 px-3'>
@@ -36,8 +37,9 @@ const TapList = () => {
 
                 <TabPanel>
                     <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
+
                         {
-                            jobs.filter(j => j.jobCategory === 'On-Site Job').map(job => <JobCard key={job._id} job={job} />)
+                            jobs.filter(j => j.category === 'On-Site Job').map(job => <JobCard key={job._id} job={job} />)
                         }
                     </div>
                 </TabPanel>
@@ -45,7 +47,7 @@ const TapList = () => {
                 <TabPanel>
                     <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
                         {
-                            jobs.filter(j => j.jobCategory === 'Remote Job').map(job => <JobCard key={job._id} job={job} />)
+                            jobs.filter(j => j.category === 'Remote Job').map(job => <JobCard key={job._id} job={job} />)
                         }
                     </div>
                 </TabPanel>
@@ -53,7 +55,7 @@ const TapList = () => {
                 <TabPanel>
                     <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
                         {
-                            jobs.filter(j => j.jobCategory === 'Hybrid').map(job => <JobCard key={job._id} job={job} />)
+                            jobs.filter(j => j.category === 'Hybrid').map(job => <JobCard key={job._id} job={job} />)
                         }
                     </div>
                 </TabPanel>
@@ -61,7 +63,7 @@ const TapList = () => {
                 <TabPanel>
                     <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8'>
                         {
-                            jobs.filter(j => j.jobCategory === 'Part-Time').map(job => <JobCard key={job._id} job={job} />)
+                            jobs.filter(j => j.category === 'Part-Time').map(job => <JobCard key={job._id} job={job} />)
                         }
                     </div>
                 </TabPanel>
