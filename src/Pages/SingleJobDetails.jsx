@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import UseAuth from "../Components/UseAuth/UseAuth";
+import axios from "axios";
 
 const SingleJobDetails = () => {
     const [ApplystartDate, setStartDate] = useState(new Date());
@@ -27,12 +28,13 @@ const SingleJobDetails = () => {
         setShowModal(true);
     };
 
-    const handleSubmit = (e) => {
+    // submit btn in modal
+    const handleSubmit =async (e) => {
         e.preventDefault();
         const resumeLink = e.target.elements.resume.value;
         const name = user.displayName;
         const userEmail = user.email;
-        const applyStartDateValue =  new Date(ApplystartDate).toLocaleDateString();
+        const applyStartDateValue = new Date(ApplystartDate).toLocaleDateString();
 
 
         // condition
@@ -40,23 +42,33 @@ const SingleJobDetails = () => {
             toast.error('You can not apply your job')
             return
         }
-        if(applyStartDateValue < formattedStartDate){
+        if (applyStartDateValue < formattedStartDate) {
             toast.error(' deadline is over.')
             return
         }
 
-
         // finale data
-        const applicantsData = {
+        const applyData = {
             name,
             userEmail,
             resumeLink,
-            applyStartDateValue
+            applyStartDateValue,
+
+            Applicants_Number, description, job_title, category, Picture_URL, Salary_range,
+
         };
-        console.log(applicantsData)
+        // console.log(applicantsData)
 
 
         // fetch here
+        try{
+            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/applicant`, applyData)
+            console.log(data)
+        }
+        catch(err){
+            console.log(err)
+        }
+
 
 
         // modal closed and toast and reset
@@ -87,7 +99,7 @@ const SingleJobDetails = () => {
                 </span>
             </div>
             <div className="pt-1 space-y-1">
-               
+
                 <h1 className="text-lg font-semibold text-gray-800">name: {UserName} </h1>
             </div>
 
@@ -146,7 +158,7 @@ const SingleJobDetails = () => {
                                 />
                             </div>
                             <div className='flex flex-col '>
-                                <label className='text-white'>Deadline</label>
+                                <label className='text-gray-600'>Deadline</label>
                                 <DatePicker
                                     selected={startDate}
                                     onChange={(date) => setStartDate(date)}
@@ -154,7 +166,7 @@ const SingleJobDetails = () => {
                                     className='block w-full px-4 py-2 text-black bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring'
                                 />
                             </div>
-                            <div className="mb-4">
+                            <div className="mb-4 mt-2">
                                 <label htmlFor="resume" className="block text-sm font-medium text-gray-700">
                                     Resume Link
                                 </label>
