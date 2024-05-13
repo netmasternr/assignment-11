@@ -2,44 +2,46 @@ import { useLoaderData } from "react-router-dom";
 
 const SingleJobDetails = () => {
     const job = useLoaderData();
-    console.log(job)
+    // console.log(job)
 
 
-    const { jobCategory, jobTitle, _id, salaryRange, jobPostingDate, jobApplicantsNumber, pictureURL, jobDescription } = job ;
-  
+    const { Applicants_Number, _id, description, UserName,job_title, category, Picture_URL, Salary_range, startDate } = job;
+    const formattedStartDate = new Date(startDate).toLocaleDateString();
+
     return (
-        <div className=' w-2/3 mx-auto pt-10 md:pt-20  px-4 py-3 bg-white rounded-md shadow-md  '>
+        <div className=' w-2/3 mx-auto mb-2 pt-10 md:pt-20  px-4 py-3 bg-white rounded-md shadow-md  '>
 
             <div>
-                {/* <img className=' w-2/3 mx-auto rounded-lg pb-2' src={img3} alt="" /> */}img
+                <img className=' w-2/3 mx-auto rounded-lg pb-2' src={Picture_URL} alt="" />
             </div>
 
             <div className='flex items-center justify-between'>
                 <span className='text-xs font-light text-gray-800 '>
-                    Deadline: 20/12/2024
+                    Deadline:{formattedStartDate}
                 </span>
                 <span className='px-3 py-1 text-[8px] text-blue-800 uppercase bg-blue-200 rounded-full '>
-                    {jobCategory}
-                    
+                    {category}
+
                 </span>
             </div>
             <div className='pt-1 space-y-1'>
                 <p>Application Deadline:</p>
-                <h1 className='text-lg font-semibold text-gray-800'>name:</h1>
+                <h1 className='text-lg font-semibold text-gray-800'>name:{UserName} </h1>
             </div>
 
             <div className='flex items-center justify-between space-y-1'>
-                <div>
+                <div className="space-y-2">
                     <h1 className='mt-2 text-lg font-semibold text-gray-800 '>
-                        {/* {jobTitle} */}
-                        
+                      {job_title}
+
                     </h1>
 
                     <p className='mt-2 text-sm font-bold text-gray-600 '>
-                        Range:
+                        Salary Range:{Salary_range}
                     </p>
-                    <p className='pt-1'>Applicants Number:
+                    <p className='pt-1'>Applicants Number:{Applicants_Number}
                     </p>
+                    <p>description: {description}</p>
                 </div>
                 <div>
                     <button className='btn'>Apply Now</button>

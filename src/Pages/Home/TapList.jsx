@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const TapList = () => {
     const [jobs, setJobs] = useState([]);
-    console.log(jobs)
+    // console.log(jobs)
 
     useEffect(() => {
         const getDta = async () => {

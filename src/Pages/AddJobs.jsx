@@ -9,19 +9,20 @@ import axios from 'axios';
 const AddJobs = () => {
     const [startDate, setStartDate] = useState(new Date());
     const { user } = UseAuth()
+    // console.log(user.displayName)
+    
 
     const handleJobPost = async (e) => {
         e.preventDefault();
         const form = e.target;
-
         const Picture_URL = form.elements.Picture_URL.value;
         const job_title = form.elements.job_title.value;
         const email = form.elements.email.value;
+        const UserName = user.displayName
         const category = form.elements.category.value;
         const Salary_range = form.elements.Salary_range.value;
         const Applicants_Number = form.elements.Applicants_Number.value;
         const description = form.elements.description.value;
-
         const startDateValue = startDate;
 
         if (!job_title || !Salary_range) {
@@ -38,6 +39,7 @@ const AddJobs = () => {
             Salary_range,
             Applicants_Number,
             description,
+            UserName,
             startDate: startDateValue
         };
 
