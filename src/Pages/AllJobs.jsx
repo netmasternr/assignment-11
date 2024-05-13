@@ -1,23 +1,41 @@
 import { Link, useLoaderData } from "react-router-dom";
+import { useState } from "react";
 
 const AllJobs = () => {
     const allJobs = useLoaderData();
-    // console.log(allJobs);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // Filter jobs
+    const filteredJobs = allJobs.filter(job =>
+        job.job_title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    // clear btn
+    const clearSearch = () => {
+        setSearchQuery('');
+    };
 
     return (
         <div className="pt-10 md:pt-16 mb-4 ">
             <section className='container px-4 mx-auto pt-12'>
+               
                 <div className="text-center mb-5">
-                    search bar
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search jobs by title..."
+                        className="border p-2 rounded-lg mr-2"
+                    />
+                    <button onClick={clearSearch} className="bg-gray-300 px-3 py-2 rounded-lg">Clear</button>
                 </div>
+
                 <div className='flex items-center gap-x-3'>
                     <h2 className='text-lg font-medium text-blue-400 '>All Jobs</h2>
-
                     <span className='px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full '>
-                        {allJobs.length} jobs
+                        {filteredJobs.length} jobs
                     </span>
                 </div>
-
                 <div className='flex flex-col mt-6'>
                     <div className='-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
                         <div className='inline-block min-w-full py-2 align-middle md:px-6 lg:px-8'>
@@ -48,17 +66,17 @@ const AllJobs = () => {
                                         </tr>
                                     </thead>
                                     <tbody className='bg-base-100 divide-y divide-gray-200 '>
-                                        {allJobs.map((job, index) => (
+                                        {filteredJobs.map((job, index) => (
                                             <tr key={index}>
                                                 <td className='px-4 py-4 pl-10 text-lg text-gray-500  whitespace-nowrap'>
                                                     {job.job_title}
                                                 </td>
                                                 <td className='px-4 py-4 text-lg text-gray-500  whitespace-nowrap'>
-                                                    {/* Static date */}
+                                                   
                                                     <p>10/04/2024</p>
                                                 </td>
                                                 <td className='px-4 py-4 text-lg text-gray-500  whitespace-nowrap'>
-                                                    {/* Dynamic deadline */}
+                                                    
                                                     {new Date(job.startDate).toLocaleDateString()}
                                                 </td>
                                                 <td className='px-4 py-4 text-lg whitespace-nowrap'>

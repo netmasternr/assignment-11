@@ -10,6 +10,7 @@ const Home = () => {
     return (
         <div className="pt-[70px]">
           <Carousel></Carousel>
+          
 
           <div className="bg-cover" >
             <TapList/>
