@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import UseAuth from '../Components/UseAuth/UseAuth';
 import Swal from 'sweetalert2';
+import toast from 'react-hot-toast';
 
 
 const MyJobs = () => {
@@ -10,30 +11,63 @@ const MyJobs = () => {
     const [items, setItems] = useState([]);
     // console.log(items)
 
-    useEffect(() => {
-        const getDta = async () => {
-            const { data } = await axios(`${import.meta.env.VITE_API_URL}/myJobs/${user?.email}`)
-            setItems(data)
 
-        }
+    // useEffect 
+    useEffect(() => {
+
         getDta()
     }, [user])
 
-    const handleDelete = e => {
+    // outside of useEffect for get data function removed from ui
+    const getDta = async () => {
+        const { data } = await axios(`${import.meta.env.VITE_API_URL}/myJobs/${user?.email}`)
+        setItems(data)
+    }
+
+
+    // update btn
+    const handleUpdate = e => {
 
         Swal.fire({
             title: 'Success!',
-            text: 'Deleted successfully.',
+            text: 'Update successfully.',
             icon: 'success',
             confirmButtonText: 'OK'
         })
     }
 
+
+    // delete btn
+    const handleDelete = async id => {
+        try {
+            const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/Job/${id}`)
+
+            console.log(data)
+            
+            if (data.deletedCount === 1) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Deleted successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+            }
+
+            // get data here for refresh ui
+            getDta()
+        }
+        catch (err) {
+            console.log(err)
+            toast.error('err.message')
+        }
+    }
+
+
     return (
         <div className="pt-10 md:pt-16 mb-3">
             <section className='container px-4 mx-auto pt-12'>
                 <div className='flex items-center gap-x-3'>
-                    <h2 className='text-lg font-medium text-gray-800 '>My Jobs</h2>
+                    <h2 className='text-lg font-medium text-gray-500 '>My Jobs</h2>
 
                     <span className='px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full '>
                         {items.length}
@@ -45,7 +79,7 @@ const MyJobs = () => {
                         <div className='inline-block min-w-full py-2 align-middle md:px-6 lg:px-8'>
                             <div className='overflow-hidden border border-gray-200  md:rounded-lg'>
                                 <table className='min-w-full divide-y divide-gray-200'>
-                                    <thead className='bg-gray-50'>
+                                    <thead className='bg-base-100'>
                                         <tr>
                                             <th
                                                 scope='col'
@@ -68,7 +102,7 @@ const MyJobs = () => {
                                                 className='px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500'
                                             >
                                                 <button className='flex items-center gap-x-2'>
-                                                    <span>salary</span>
+                                                    <span> salary</span>
                                                 </button>
                                             </th>
 
@@ -92,26 +126,28 @@ const MyJobs = () => {
                                         </tr>
                                     </thead>
 
-                                    <tbody className='bg-white divide-y divide-gray-200 '>
+                                    <tbody className='bg-base-100 divide-y divide-gray-200 '>
                                         {
                                             items.map((item, index) => (
-                                                <tr key={index}>
+                                                <tr key={index}
+                                                
+                                                >
 
-                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
+                                                    <td className='px-4 py-4 pl-10 text-lg text-gray-500  whitespace-nowrap'>
                                                         {item.job_title}
                                                     </td>
 
-                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
+                                                    <td className='px-4 py-4 text-lg text-gray-500  whitespace-nowrap'>
                                                         {new Date(item.startDate).toLocaleDateString()}
                                                     </td>
 
-                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                        {item.Salary_range}
+                                                    <td className='px-4 py-4 text-lg text-gray-500  whitespace-nowrap'>
+                                                       $ {item.Salary_range}
                                                     </td>
-                                                    <td className='px-4 py-4 text-sm whitespace-nowrap'>
+                                                    <td className='px-4 py-4 text-lg whitespace-nowrap'>
                                                         <div className='flex items-center gap-x-2'>
                                                             <p
-                                                                className='px-3 py-1 rounded-full text-blue-500 bg-blue-100/60                text-xs'
+                                                                className='px-3 py-1 rounded-full text-gray-400               text-lg'
                                                             >
                                                                 {item.category}
                                                             </p>
@@ -119,13 +155,13 @@ const MyJobs = () => {
                                                     </td>
 
                                                     {/* update and delete button */}
-                                                    <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
+                                                    <td className='px-4 py-4 text-lg font-medium text-gray-700 whitespace-nowrap'>
 
-                                                        <button className="btn">Update</button>
+                                                        <button onClick={handleUpdate} className="btn">Update</button>
                                                     </td>
 
                                                     <td className='px-4 py-4 text-sm whitespace-nowrap'>
-                                                        <button onClick={handleDelete} className="btn">Delete</button>
+                                                        <button onClick={() => handleDelete(item._id)} className="btn">Delete</button>
                                                     </td>
                                                 </tr>
                                             ))

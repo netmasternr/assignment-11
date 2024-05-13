@@ -11,6 +11,7 @@ import Register from "../Components/Register/Register";
 import PrivateRoute from "../Components/PrivateRoute/PrivateRoute";
 import AppliedJobs from "../Pages/AppliedJobs";
 import SingleJobDetails from "../Pages/SingleJobDetails";
+import UpdateJobInfo from "../Components/UpdateJobInfo/UpdateJobInfo";
 
 const router = createBrowserRouter([
     {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
                     <SingleJobDetails />
                 </PrivateRoute>,
                 loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/singleJob/${params.id}`)
+            },
+            {
+                path: '/updateJobInfo',
+                element: <UpdateJobInfo/>
             }
 
         ]

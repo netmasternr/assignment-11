@@ -8,7 +8,7 @@ const JobCard = ({ job }) => {
     const formattedStartDate = new Date(startDate).toLocaleDateString();
 
     return (
-        <div className='px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all'>
+        <div className='px-4 py-3 bg-base-100 rounded-md shadow-md hover:scale-[1.05] transition-all'>
             <div>
                 <img className='w-2/3 mx-auto rounded-lg pb-2' src={Picture_URL} alt="" />
             </div>
@@ -17,15 +17,15 @@ const JobCard = ({ job }) => {
                     {category}
                 </span>
             </div>
-            <div className='pt-1 space-y-1'>
+            <div className='pt-1 text-gray-500 space-y-1'>
                 <p>Application Deadline: {formattedStartDate}</p>
-                <h1 className='text-lg font-semibold text-gray-800'>Name: {UserName}</h1>
+                <h1 className='text-lg font-semibold text-gray-500'>Name: {UserName}</h1>
             </div>
             <div className='flex items-center justify-between space-y-1'>
                 <div>
-                    <h1 className='mt-2 text-lg font-semibold text-gray-800'>{job_title}</h1>
-                    <p className='mt-2 text-sm font-bold text-gray-600'>Range: ${Salary_range}</p>
-                    <p className='pt-1'>Applicants Number: {Applicants_Number}</p>
+                    <h1 className='mt-2 text-lg font-semibold text-gray-500'>{job_title}</h1>
+                    <p className='mt-2 text-sm font-bold text-gray-500'>Range: ${Salary_range}</p>
+                    <p className='pt-1 text-gray-500'>Applicants Number: {Applicants_Number}</p>
                 </div>
                 <div>
                     <Link to={`/singleJob/${_id}`} className='btn'>View Details</Link>

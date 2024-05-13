@@ -105,10 +105,10 @@ const Navbar = () => {
                                 <img className="rounded-full" src={user?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} alt="" />
                             </summary>
 
-                            <ul className="p-1 shadow menu dropdown-content z-[1] bg-gray-800 glass rounded-box w-28">
-                                <li>{user?.displayName || "unknown"}</li>
+                            <ul className="p-1 py-3 space-y-2 shadow text-slate-900 menu dropdown-content z-[1] glass rounded-md h-24 w-28">
+                                <li className="glass p-1 rounded-md">{user?.displayName || "unknown"}</li>
                                 <li>
-                                    <button onClick={signOutUser}>Log Out</button>
+                                    <button className=" glass " onClick={signOutUser}>Log Out</button>
                                 </li>
                             </ul>
                         </details>
