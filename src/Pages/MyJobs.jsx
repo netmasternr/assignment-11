@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import UseAuth from '../Components/UseAuth/UseAuth';
+import Swal from 'sweetalert2';
+
 
 const MyJobs = () => {
+
     const { user } = UseAuth()
     const [items, setItems] = useState([]);
     // console.log(items)
@@ -15,6 +18,16 @@ const MyJobs = () => {
         }
         getDta()
     }, [user])
+
+    const handleDelete = e => {
+
+        Swal.fire({
+            title: 'Success!',
+            text: 'Deleted successfully.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        })
+    }
 
     return (
         <div className="pt-10 md:pt-16 mb-3">
@@ -112,7 +125,7 @@ const MyJobs = () => {
                                                     </td>
 
                                                     <td className='px-4 py-4 text-sm whitespace-nowrap'>
-                                                        <button className="btn">Delete</button>
+                                                        <button onClick={handleDelete} className="btn">Delete</button>
                                                     </td>
                                                 </tr>
                                             ))
