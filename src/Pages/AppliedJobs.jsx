@@ -1,5 +1,25 @@
+import { useEffect, useState } from "react";
+import UseAuth from "../Components/UseAuth/UseAuth";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const AppliedJobs = () => {
+
+    const { user } = UseAuth()
+    const [items, setItems] = useState([])
+    console.log(items)
+
+
+    useEffect(() => {
+        const getData = async () => {
+            const { data } = await axios(`${import.meta.env.VITE_API_URL}/apJobs/${user.email}`)
+            setItems(data)
+        }
+        getData()
+
+    }, [user])
+
+
     return (
         <div className="pt-10 md:pt-20 ">
             <div>
@@ -27,7 +47,7 @@ const AppliedJobs = () => {
                     <h2 className='text-lg font-medium text-gray-800 '>Applied Jobs</h2>
 
                     <span className='px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full '>
-                        05 Jobs
+                        {items.length}
                     </span>
                 </div>
 
@@ -51,7 +71,7 @@ const AppliedJobs = () => {
                                                 scope='col'
                                                 className='px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500'
                                             >
-                                                <span>Job Posting Date</span>
+                                                <span>Deadline</span>
                                             </th>
 
                                             <th
@@ -59,7 +79,7 @@ const AppliedJobs = () => {
                                                 className='px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500'
                                             >
                                                 <button className='flex items-center gap-x-2'>
-                                                    <span>Application Deadline</span>
+                                                    <span>salary</span>
                                                 </button>
                                             </th>
 
@@ -67,53 +87,46 @@ const AppliedJobs = () => {
                                                 scope='col'
                                                 className='px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500'
                                             >
-                                                Salary range
+                                                Category
                                             </th>
 
-                                            <th
-                                                scope='col'
-                                                className='px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500'
-                                            >
-
-                                            </th>
-
-                                            <th className='px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500'>
-                                                Details Button
-
-                                            </th>
                                         </tr>
                                     </thead>
 
+
                                     <tbody className='bg-white divide-y divide-gray-200 '>
-                                        <tr>
-                                            <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                Build Dynamic Website
-                                            </td>
+                                        {
+                                            items.map((item, index) => (
+                                                <tr key={index}>
 
-                                            <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                10/04/2024
-                                            </td>
+                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
+                                                        {item.job_title}
+                                                    </td>
 
-                                            <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                25/05/2024
-                                            </td>
-                                            <td className='px-4 py-4 text-sm whitespace-nowrap'>
-                                                <div className='flex items-center gap-x-2'>
-                                                    <p
-                                                        className='px-3 py-1 rounded-full text-blue-500 bg-blue-100/60                text-xs'
-                                                    >
-                                                        200$
-                                                    </p>
-                                                </div>
-                                            </td>
+                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
+                                                        {item.applyStartDateValue}
+                                                        {/* {new Date(item.startDate).toLocaleDateString()} */}
+                                                    </td>
 
-                                            <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
-                                            </td>
+                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
+                                                        {item.Salary_range}
+                                                    </td>
+                                                    <td className='px-4 py-4 text-sm whitespace-nowrap'>
+                                                        <div className='flex items-center gap-x-2'>
+                                                            <p
+                                                                className='px-3 py-1 rounded-full text-blue-500 bg-blue-100/60                text-xs'
+                                                            >
+                                                                {item.category}
+                                                            </p>
+                                                        </div>
+                                                    </td>
 
-                                            <td className='px-4 py-4 text-sm whitespace-nowrap'>
-                                                <button className="btn">View Details</button>
-                                            </td>
-                                        </tr>
+                                                    {/* update and delete button */}
+                                                   
+
+                                                </tr>
+                                            ))
+                                        }
                                     </tbody>
                                 </table>
                             </div>

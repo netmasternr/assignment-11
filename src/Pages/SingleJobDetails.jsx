@@ -63,7 +63,7 @@ const SingleJobDetails = () => {
         // fetch here
         try{
             const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/applicant`, applyData)
-            console.log(data)
+            // console.log(data)
         }
         catch(err){
             console.log(err)
