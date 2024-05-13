@@ -100,13 +100,13 @@ const Navbar = () => {
             <div className="navbar-end space-x-3">
                 {
                     user ? (
-                        <details className="dropdown">
+                        <details className="dropdown mr-8">
                             <summary className="m-1 btn p-0 w-12 rounded-full">
                                 <img className="rounded-full" src={user?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"} alt="" />
                             </summary>
 
-                            <ul className="p-1 py-3 space-y-2 shadow text-slate-900 menu dropdown-content z-[1] glass rounded-md h-24 w-28">
-                                <li className="glass p-1 rounded-md">{user?.displayName || "unknown"}</li>
+                            <ul className="p-2 py-3  shadow text-slate-900 menu dropdown-content z-[1] glass rounded-md  w-32">
+                                <li className=" p-1 rounded-md">{user?.displayName || "unknown"}</li>
                                 <li>
                                     <button className=" glass " onClick={signOutUser}>Log Out</button>
                                 </li>

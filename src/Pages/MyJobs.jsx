@@ -3,6 +3,7 @@ import axios, { Axios } from 'axios';
 import UseAuth from '../Components/UseAuth/UseAuth';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 
 const MyJobs = () => {
@@ -25,16 +26,16 @@ const MyJobs = () => {
     }
 
 
-    // update btn
-    const handleUpdate = e => {
+    // // update btn
+    // const handleUpdate = e => {
 
-        Swal.fire({
-            title: 'Success!',
-            text: 'Update successfully.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        })
-    }
+    //     Swal.fire({
+    //         title: 'Success!',
+    //         text: 'Update successfully.',
+    //         icon: 'success',
+    //         confirmButtonText: 'OK'
+    //     })
+    // }
 
 
     // delete btn
@@ -157,7 +158,7 @@ const MyJobs = () => {
                                                     {/* update and delete button */}
                                                     <td className='px-4 py-4 text-lg font-medium text-gray-700 whitespace-nowrap'>
 
-                                                        <button onClick={handleUpdate} className="btn">Update</button>
+                                                    <Link to={`/update/${item._id}`} className='btn'>Update</Link>
                                                     </td>
 
                                                     <td className='px-4 py-4 text-sm whitespace-nowrap'>
