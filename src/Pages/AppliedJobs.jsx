@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
     response => response,
     error => {
         if (error.response && (error.response.status === 401 || error.response.status === 404)) {
-            console.log('Log out the user');
+            // console.log('Log out the user');
             // Add your logout logic here, e.g., redirect to login page
         }
         return Promise.reject(error);
