@@ -1,7 +1,16 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+/* eslint-disable react/prop-types */
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut,
+    updateProfile
+} from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
+import axios from "axios";
 
 // context api
 export const AuthContext = createContext(null)
@@ -61,11 +70,33 @@ const AuthProvider = ({ children }) => {
     // observer
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
+
+            const userEmail = user?.email || user?.email;
+            const loggedUser = { email: userEmail };
+
             if (user) {
-                setUser(user)
+                setUser(user);
+                console.log(user)
+                // if user than issue a token here
+                axios.post(`${import.meta.env.VITE_API_URL}/jwt`, loggedUser, {
+                    withCredentials: true
+
+                })
+                    .then(res => {
+                        console.log('token response', res.data)
+                    })
+
                 setLoading(false)
             }
             else {
+                // logout
+                axios.post(`${import.meta.env.VITE_API_URL}/logOut`, loggedUser, {
+                    withCredentials: true
+                })
+                    .then(res => {
+                        console.log(res.data)
+                    })
+
                 setLoading(false)
                 // User is signed out
                 // ...

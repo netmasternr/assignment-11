@@ -20,7 +20,7 @@ const AppliedJobs = () => {
         setSelectedCategory(e.target.value);
     };
 
-    // Filter  selected category
+    // Filter
     const filteredItems = selectedCategory ? items.filter(item => item.category === selectedCategory) : items;
 
     return (

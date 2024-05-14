@@ -19,7 +19,7 @@ const AllJobs = () => {
         <div className="pt-10 md:pt-16 mb-4 ">
             <section className='container px-4 mx-auto pt-12'>
                
-                <div className="text-center mb-5">
+                <div className="text-center  mb-5">
                     <input
                         type="text"
                         value={searchQuery}
@@ -27,7 +27,7 @@ const AllJobs = () => {
                         placeholder="Search jobs by title..."
                         className="border p-2 rounded-lg mr-2"
                     />
-                    <button onClick={clearSearch} className="bg-gray-300 px-3 py-2 rounded-lg">Clear</button>
+                    <button onClick={clearSearch} className="bg-green-400 btn">Clear</button>
                 </div>
 
                 <div className='flex items-center gap-x-3'>
