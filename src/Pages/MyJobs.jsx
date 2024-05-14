@@ -39,12 +39,14 @@ const MyJobs = () => {
             const { data } = await axiosInstance.get(`/myJobs/${user?.email}`);
             setItems(data);
         } catch (error) {
-            console.error('Error fetching data', error);
+            // console.error('Error fetching data', error);
             signOutUser()
             .then(() => {
                 navigate('/login')
             })
-            .catch(() => console.log(error))
+            .catch(() => {
+                // console.log(error)
+            })
             
         }
     };
@@ -63,7 +65,7 @@ const MyJobs = () => {
                 getDta();
             }
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             toast.error(err.message);
         }
     };

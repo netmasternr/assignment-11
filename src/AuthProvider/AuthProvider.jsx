@@ -76,14 +76,14 @@ const AuthProvider = ({ children }) => {
 
             if (user) {
                 setUser(user);
-                console.log(user)
+                // console.log(user)
                 // if user than issue a token here
                 axios.post(`${import.meta.env.VITE_API_URL}/jwt`, loggedUser, {
                     withCredentials: true
 
                 })
                     .then(res => {
-                        console.log('token response', res.data)
+                        // console.log('token response', res.data)
                     })
 
                 setLoading(false)
@@ -94,7 +94,7 @@ const AuthProvider = ({ children }) => {
                     withCredentials: true
                 })
                     .then(res => {
-                        console.log(res.data)
+                        // console.log(res.data)
                     })
 
                 setLoading(false)

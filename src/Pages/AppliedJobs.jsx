@@ -35,7 +35,7 @@ const AppliedJobs = () => {
                 const { data } = await axiosInstance.get(`/apJobs/${user.email}`);
                 setItems(data);
             } catch (error) {
-                console.error('Error fetching data', error);
+                // console.error('Error fetching data', error);
                 navigate('/login')
                
             }
