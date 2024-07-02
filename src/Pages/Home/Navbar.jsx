@@ -61,7 +61,7 @@ const Navbar = () => {
             <NavLink
                 to="/My-Jobs"
                 className={({ isActive }) =>
-                    isActive ? 'text-green-500 bg-gray-600 p-2 rounded-lg font-bold' : 'p-2 font-bold'
+                    isActive ? 'text-green-500 bg-gray-600 p-2  font-bold' : 'p-2 font-bold'
                 }>
                 My Jobs
             </NavLink>

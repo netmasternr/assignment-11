@@ -43,7 +43,7 @@ const AppliedJobs = () => {
         if (user) {
             getData();
         }
-    }, [user]);
+    }, [user ,navigate]);
 
     // Handle category change
     const handleCategoryChange = (e) => {

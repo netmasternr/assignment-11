@@ -1,5 +1,10 @@
 assignment_category_0003
 
+to run this project
+1. npm i
+2. add your firebase token in firebase.config.js
+3. npm run dev
+
 * 1. live link: https://skills-sphere-efc98.web.app/
 
 
